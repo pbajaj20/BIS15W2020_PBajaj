@@ -1,0 +1,74 @@
+---
+title: "LAB 2 HW"
+author: "Priya Bajaj"
+date: "1/23/2020"
+output: 
+  html_document: 
+    keep_md: yes
+---
+### Load the tidyverse
+```{r}
+library("tidyverse")
+library("knitr")
+```
+
+```{r}
+getwd()
+```
+
+
+```{r}
+msleep
+```
+
+```{r}
+?msleep
+```
+#data comes from *V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007.
+```{r}
+sleep <- data.frame(msleep)
+```
+
+```{r}
+names(sleep)
+```
+```{r}
+glimpse(sleep)
+```
+```{r}
+summary(sleep)
+```
+```{r}
+(sleep[,1])
+```
+```{r}
+(sleep[1,])
+```
+```{r}
+small <- subset(sleep, bodywt<=1)
+(small)
+```
+```{r}
+large <- subset(sleep, bodywt>=200)
+(large)
+```
+```{r}
+mean(large$bodywt)
+mean(small$bodywt)
+```
+```{r}
+mean(large$sleep_total)
+```
+```{r}
+mean(small$sleep_total)
+```
+```{r}
+if (mean(large$sleep_total) > mean(small$sleep_total))
+  print("Large animals are the sleepiest") 
+if (mean(large$sleep_total) < mean(small$sleep_total))
+  print("Small animals are the sleepiest")
+```
+```{r}
+small$name[small$sleep_total>18]
+large$name[large$sleep_total>18]
+```
