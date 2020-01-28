@@ -9,7 +9,7 @@ output:
 ---
 
 ## Instructions
-Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code, keep track of your versions using git, and push your final work to our [GitHub repository](https://github.com/FRS417-DataScienceBiologists). I will randomly select a few examples of student work at the start of each session to use as examples so be sure that your code is working to the best of your ability.  
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove any `#` for included code chunks to run.  
 
 1. Navigate to the R console and calculate the following expressions.  
   + 5 - 3 * 2  
@@ -30,6 +30,7 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 ```
 ## [1] 2
 ```
+
 2. Did any of the results in #1 surprise you? Write two programs that calculate each expression such that the result for the first example is 4 and the second example is 16.  
 
 ```r
@@ -49,7 +50,6 @@ Answer the following questions and complete the exercises in RMarkdown. Please e
 ```
 
 3. Make a new object `pi` as 3.14159265359.  
-
 
 ```r
 pi<-3.14159265359
@@ -73,6 +73,7 @@ is.numeric(pi)
 ## [1] TRUE
 ```
 #pi is numeric
+
 5. You have decided to use your new analytical powers in R to become a professional gambler. Here are your winnings and losses this week. Note that you don't gamble on the weekends!  
 
 ```r
@@ -106,6 +107,7 @@ sum(blackjack)
 c. What is your interpretation of this result? What do you need to do to address the problem? Recalculate how much you won or lost in blackjack over the week.  
 ##there's missing values in the vector which need to be removed
 
+
 ```r
 sum(blackjack, na.rm = TRUE)
 ```
@@ -123,6 +125,7 @@ sum(roulette, na.rm=TRUE)
 ```
 ## [1] -60
 ```
+
 e. Build a `total_week` vector to show how much you lost or won on each day over the week. Which days seem lucky or unlucky for you?
 
 ```r
@@ -135,6 +138,7 @@ print(total_week)
 ##       200        30       190      -420       250
 ```
 #Thursday is most unlucky, Monday is lucky
+
 f. Should you stick to blackjack or roulette? Write a program that verifies this below.  
 
 ```r
@@ -150,4 +154,5 @@ if(play==TRUE){
 ## [1] "Player should play Blackjack"
 ```
 
-## Push your final code to [GitHub](https://github.com/FRS417-DataScienceBiologists)
+## Push your final code to GitHub!
+Please be sure that you check the `keep md` file in the knit preferences.   
