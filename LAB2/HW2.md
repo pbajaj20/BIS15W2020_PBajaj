@@ -6,6 +6,10 @@ output:
   html_document: 
     keep_md: yes
 ---
+
+## Instructions
+Answer the following questions and complete the exercises in RMarkdown. Please embed all of your code and push your final work to your repository. Your final lab report should be organized, clean, and run free from errors. Remember, you must remove any `#` for included code chunks to run.  
+
 ### Load the tidyverse
 
 ```r
@@ -13,20 +17,20 @@ library("tidyverse")
 ```
 
 ```
-## ── Attaching packages ──────────────────────────── tidyverse 1.3.0 ──
+## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
 ```
 
 ```
-## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
-## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
-## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
-## ✔ readr   1.3.1     ✔ forcats 0.4.0
+## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
+## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
+## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.4.0
 ```
 
 ```
-## ── Conflicts ─────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
+## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
 ```
 
 ```r
@@ -39,9 +43,8 @@ getwd()
 ```
 
 ```
-## [1] "/Users/priya/Desktop/BIS15W2020_PBajaj/lab 2"
+## [1] "/Users/jmledford/Desktop/BIS15W2020_PBajaj/LAB2"
 ```
-
 
 
 ```r
@@ -65,16 +68,20 @@ msleep
 ## # … with 73 more rows, and 2 more variables: brainwt <dbl>, bodywt <dbl>
 ```
 
+1. From which publication are these data taken from? Don't do an internet search; show the code that you would use to find out in R.
 
 ```r
 ?msleep
 ```
-#data comes from *V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007.
+#data comes from *V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007.  
+
+2. Put these data into a new object `sleep`. Make sure they are organized as a data frame.  
 
 ```r
 sleep <- data.frame(msleep)
 ```
 
+3. Show a list of the column names is this data frame.
 
 ```r
 names(sleep)
@@ -85,6 +92,8 @@ names(sleep)
 ##  [6] "sleep_total"  "sleep_rem"    "sleep_cycle"  "awake"        "brainwt"     
 ## [11] "bodywt"
 ```
+
+4. Use `glimpse()` to summarize the data in `sleep`.
 
 ```r
 glimpse(sleep)
@@ -105,6 +114,8 @@ glimpse(sleep)
 ## $ brainwt      <dbl> NA, 0.01550, NA, 0.00029, 0.42300, NA, NA, NA, 0.07000, …
 ## $ bodywt       <dbl> 50.000, 0.480, 1.350, 0.019, 600.000, 3.850, 20.490, 0.0…
 ```
+
+5. Use `summary()` to summarize the data in `sleep`.
 
 ```r
 summary(sleep)
@@ -136,6 +147,8 @@ summary(sleep)
 ##  Max.   :22.10   Max.   :5.71200   Max.   :6654.000  
 ##                  NA's   :27
 ```
+
+6. Print out the first column of the data frame and then print out the first row.
 
 ```r
 (sleep[,1])
@@ -186,6 +199,7 @@ summary(sleep)
 ## [83] "Red fox"
 ```
 
+
 ```r
 (sleep[1,])
 ```
@@ -196,6 +210,8 @@ summary(sleep)
 ##   sleep_cycle awake brainwt bodywt
 ## 1          NA  11.9      NA     50
 ```
+
+7. We are interested in two groups; small and large mammals. Let's define small as less than or equal to 1kg body weight and large as greater than or equal to 200kg body weight. Make two new dataframes (large and small) based on these parameters. 
 
 ```r
 small <- subset(sleep, bodywt<=1)
@@ -279,6 +295,7 @@ small <- subset(sleep, bodywt<=1)
 ## 79         <NA>         8.9       2.6   0.2333333  15.1 0.00250  0.104
 ```
 
+
 ```r
 large <- subset(sleep, bodywt>=200)
 (large)
@@ -303,6 +320,8 @@ large <- subset(sleep, bodywt>=200)
 ## 77       1.0   0.9000000 19.60   0.169  207.501
 ```
 
+8. What is the mean weight for both the large and small mammals?
+
 ```r
 mean(large$bodywt)
 ```
@@ -310,6 +329,7 @@ mean(large$bodywt)
 ```
 ## [1] 1747.071
 ```
+
 
 ```r
 mean(small$bodywt)
@@ -319,6 +339,7 @@ mean(small$bodywt)
 ## [1] 0.2596667
 ```
 
+
 ```r
 mean(large$sleep_total)
 ```
@@ -327,6 +348,7 @@ mean(large$sleep_total)
 ## [1] 3.3
 ```
 
+
 ```r
 mean(small$sleep_total)
 ```
@@ -334,6 +356,8 @@ mean(small$sleep_total)
 ```
 ## [1] 12.65833
 ```
+
+9. Let's try to figure out if large mammals sleep, on average, longer than small mammals. What is the average sleep duration for large mammals as we have defined them?
 
 ```r
 if (mean(large$sleep_total) > mean(small$sleep_total))
@@ -346,6 +370,8 @@ if (mean(large$sleep_total) < mean(small$sleep_total))
 ## [1] "Small animals are the sleepiest"
 ```
 
+10. What is the average sleep duration for small mammals as we have defined them?
+
 ```r
 small$name[small$sleep_total>18]
 ```
@@ -354,6 +380,8 @@ small$name[small$sleep_total>18]
 ## [1] "Big brown bat"        "Thick-tailed opposum" "Little brown bat"
 ```
 
+11. Which animals are the sleepiest? Which sleep least 18 hours per day?  
+
 ```r
 large$name[large$sleep_total>18]
 ```
@@ -361,3 +389,27 @@ large$name[large$sleep_total>18]
 ```
 ## character(0)
 ```
+
+
+```r
+sleepy <- subset(sleep, sleep_total>=18)
+sleepy
+```
+
+```
+##                      name      genus    vore           order conservation
+## 20 North American Opossum  Didelphis    omni Didelphimorphia           lc
+## 22          Big brown bat  Eptesicus insecti      Chiroptera           lc
+## 37   Thick-tailed opposum Lutreolina   carni Didelphimorphia           lc
+## 43       Little brown bat     Myotis insecti      Chiroptera         <NA>
+## 62        Giant armadillo Priodontes insecti       Cingulata           en
+##    sleep_total sleep_rem sleep_cycle awake brainwt bodywt
+## 20        18.0       4.9   0.3333333   6.0 0.00630  1.700
+## 22        19.7       3.9   0.1166667   4.3 0.00030  0.023
+## 37        19.4       6.6          NA   4.6      NA  0.370
+## 43        19.9       2.0   0.2000000   4.1 0.00025  0.010
+## 62        18.1       6.1          NA   5.9 0.08100 60.000
+```
+
+## Push your final code to GitHub!
+Please be sure that you check the `keep md` file in the knit preferences.   
