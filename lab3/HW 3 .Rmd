@@ -1,0 +1,115 @@
+---
+title: "HW 3"
+author: "Priya Bajaj"
+date: "1/31/2020"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+homerange<- readr::read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
+```
+
+```{r}
+spec(homerange)
+```
+
+```{r}
+nrow(homerange)
+```
+
+```{r}
+ncol(homerange)
+```
+
+```{r}
+dim(homerange)
+```
+
+```{r}
+colnames(homerange)
+```
+
+```{r}
+summary(homerange)
+```
+
+```{r}
+anyNA(homerange)
+```
+
+```{r}
+homerange$taxon <- as.factor(homerange$taxon) 
+class(homerange$taxon)
+```
+
+```{r}
+deer <- homerange %>% 
+  select(mean.mass.g, log10.mass, family, genus, species) %>% 
+  filter(family == "cervidae") %>% 
+  arrange(desc(log10.mass))
+deer
+```
+
+##Alces Alces is largest deer.
+
+```{r}
+snake <- homerange %>% 
+  select(taxon, family, genus, species, mean.hra.m2, log10.hra) %>% 
+  filter(taxon == "snakes") %>% 
+  arrange(log10.hra)
+snake
+```
+
+```{r}
+snake <- homerange %>% 
+  select(taxon, family, genus, species, mean.hra.m2, log10.hra) %>% 
+  filter(taxon == "snakes") %>% 
+  arrange(log10.hra)
+snake
+```
+
+##Bitis Schneideri has smalles homerange. Another name for it is namaqua dwarf adder.At 20cm avg, it's the smallest adder in the world.
+
+```{r}
+hra_ratio <- homerange %>% 
+  filter(taxon == "birds") %>% 
+  select(genus, species, mean.mass.g, log10.mass, log10.hra) %>% 
+  arrange(mean.mass.g)
+hra_ratio
+```
+
+```{r}
+hra.mass.ratio <- hra_ratio %>% 
+  mutate(ratio = log10.hra/log10.mass) %>% 
+  arrange(desc(mean.mass.g))
+hra.mass.ratio
+```
+
+```{r}
+hra.mass.ratio %>% 
+  filter(ratio >= 4)
+```
+
+###Regulus Regulus has smallest mass over 4 (5.15)
+
+### The common name of regulus regulus is the [Goldcrest](https://www.iucnredlist.org/species/22734997/132183740)
+
+```{r}
+homerange %>% 
+  filter(common.name == "ostrich") %>% 
+  select(genus, species) 
+  
+```
+
+```{r}
+hra.mass.ratio %>% 
+  filter(species == "camelus")
+```
+
+##1.602565 m^2/g
