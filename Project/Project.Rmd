@@ -1,0 +1,22 @@
+---
+title: "Project"
+author: "Priya Bajaj"
+date: "2/21/2020"
+output: html_document
+---
+
+```{r}
+#install.packages("readxl")
+```
+
+```{r}
+library("readxl")
+```
+
+```{r}
+Project <- read_excel("Desktop/BIS15W2020_PBajaj/Project/Project.xlsx")
+```
+
+```{r}
+
+```
