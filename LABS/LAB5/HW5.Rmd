@@ -1,0 +1,146 @@
+---
+title: "HW5"
+author: "Priya Bajaj"
+date: "2/14/2020"
+output: 
+  html_document: 
+    keep_md: yes
+---
+```{r}
+##install.packages("naniar")
+##install.packages("skimr")
+```
+
+```{r}
+library(tidyverse)
+library(naniar)
+library(skimr)
+```
+
+```{r}
+amniota <- 
+  readr::read_csv("data/amniota.csv")
+```
+
+```{r}
+amphibio <- 
+  readr::read_csv("data/amphibio.csv")
+```
+
+```{r}
+str(amphibio)
+```
+
+```{r}
+colnames(amphibio)
+```
+
+```{r}
+dim(amphibio)
+```
+
+```{r}
+str(amniota)
+```
+
+```{r}
+colnames(amniota)
+```
+
+```{r}
+dim(amniota)
+```
+
+####NAs are represented by -999
+
+```{r}
+amniota %>% 
+  summarize(total_na = sum(is.na(amniota)))
+```
+```{r}
+amphibio %>% 
+  summarize(total_nas = sum(is.na(amphibio)))
+```
+
+```{r}
+amniota2 <- 
+  amniota %>% 
+  na_if("-999")
+amniota2
+```
+
+```{r}
+amphibio2 <- 
+  amphibio %>% 
+  na_if("-999")
+amphibio2
+```
+
+```{r}
+naniar::miss_var_summary(amniota2)
+```
+
+```{r}
+naniar::miss_var_summary(amphibio2)
+```
+
+```{r}
+amniota2 %>% 
+  group_by(class) %>% 
+  select(class,egg_mass_g) %>% 
+  summarise(total_Na = sum(is.na(egg_mass_g)))
+```
+##It makes sense to have NAs as most mammals don't lay eggs. It's surprising to have missing information for reptiles however.
+
+```{r}
+amniota2 %>%
+  group_by(class) %>% 
+  ggplot(aes(x = class)) +
+  geom_bar(stat = "count")
+```
+
+```{r}
+amniota2 %>% 
+  group_by(class) %>% 
+  summarise(Total_Genera = n_distinct(genus))
+```
+
+```{r}
+amniota2 %>%
+  group_by(class) %>% 
+  summarise(Total_Genera = n_distinct(genus)) %>% 
+  ggplot(aes(x = class, y = Total_Genera))+
+  geom_bar(stat = "identity")
+```
+
+```{r}
+amniota2 %>% 
+  group_by(class) %>% 
+  summarise(Total_Species = n_distinct(species))
+```
+
+```{r}
+amniota2 %>%
+  group_by(class) %>% 
+  summarise(Total_Species = n_distinct(species)) %>% 
+  ggplot(aes(x = class, y = Total_Species))+
+  geom_bar(stat = "identity")
+```
+
+```{r}
+amphibio2 %>% 
+  pivot_longer(Fos:Arb,
+               names_to = "Ecology",
+               values_to = "Count") %>% 
+  group_by(Ecology) %>% 
+  summarise(species_numbers = sum(Count, na.rm = T)) %>%
+  ggplot(aes(x = Ecology, y = species_numbers))+
+  geom_bar(stat = "identity")
+```
+
+```{r}
+amphibio2 %>% 
+  ggplot(aes(x = Body_size_mm, y = Litter_size_min_n))+
+  geom_point(na.rm = T)+
+  geom_smooth(method = lm)
+```

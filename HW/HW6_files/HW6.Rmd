@@ -1,0 +1,185 @@
+---
+title: "HW6"
+author: "Priya Bajaj"
+date: "2/21/2020"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+#install.packages("gapminder")
+library("gapminder")
+```
+
+```{r}
+str(gapminder)
+```
+
+```{r}
+dim(gapminder)
+```
+
+```{r}
+colnames(gapminder)
+```
+
+```{r}
+glimpse(gapminder)
+```
+
+```{r}
+nlevels(gapminder$country)
+```
+
+```{r}
+naniar::miss_var_summary(gapminder)
+```
+
+```{r}
+summary(gapminder)
+```
+
+```{r}
+Global_Life_Exp <- gapminder %>% 
+  select(country, year, lifeExp) %>% 
+  filter(year >= 1952 & year <=2007) %>% 
+  group_by(year) %>% 
+  summarise(lifeExp_avg = mean(lifeExp)) %>% 
+  ggplot(aes(x= year, y= lifeExp_avg))+
+  geom_bar(stat = "identity")+
+  labs(title = "Global Life Expectancy [1952 to 2007]",
+       x = "Years",
+       y = "Global Life Expectancy")+
+  theme(plot.title = element_text(size = 18, hjust = .5))
+
+Global_Life_Exp
+```
+
+```{r}
+gapminder  %>%  
+  filter(year %in% c(1952, 2007)) %>%
+  select(year, lifeExp) %>% 
+  group_by(year) %>% 
+  summarize(min_lifeExp=min(lifeExp),
+            max_lifeExp=max(lifeExp),
+            mean_lifeExp=mean(lifeExp),
+            median_lifeEx=median(lifeExp))
+```
+
+```{r}
+gapminder %>%
+  filter(year %in% c(1952, 2007)) %>%
+  ggplot(aes(x=year, y=lifeExp, group=year))+
+  geom_boxplot(fill="pink", alpha=.6) +
+  labs(title="Global Life Expectancy",
+       x= "Year",
+       y="Life Expectancy") +
+  theme(plot.title = element_text(size = rel(2), hjust = 0.5))
+```
+
+```{r}
+gapminder %>% 
+  group_by(continent) %>% 
+  summarize(min_lifeExp = min(lifeExp),
+            max_lifeExp = max(lifeExp),
+            mean_lifeExp = mean(lifeExp))
+```
+
+```{r}
+gapminder %>% 
+  ggplot(aes(x = continent, y = lifeExp, fill = continent)) +
+  geom_boxplot() +
+  labs(title = "Life Expectancy Summary by Continent",
+       x = "Continent",
+       y = "Life Expectancy")
+```
+
+```{r}
+gapminder %>% 
+  select(continent, year, lifeExp) %>% 
+  group_by(continent, year) %>% 
+    summarize(mean_lifeExp=mean(lifeExp))
+```
+
+```{r}
+gapminder %>% 
+  group_by(year, continent) %>% 
+  summarize(mean_lifeExp=mean(lifeExp)) %>% 
+  ggplot(aes(x=year, y=mean_lifeExp, color=continent))+
+  geom_point() +
+  geom_line(alpha=.6) +
+  labs(title="Global Life Expectancy by Continent",
+       x= "Year",
+       y="Life Expectancy") +
+  theme(plot.title = element_text(size = rel(2), hjust = 0.5))
+```
+
+```{r}
+gapminder %>% 
+  select(country, continent, year, lifeExp, gdpPercap) %>%
+  ggplot(aes(x=gdpPercap, y=lifeExp, color = continent))+
+  geom_jitter()+
+  labs(
+    title= "GDP Per Capita vs Life Expectancy",
+    x= "Countries GDP per capita",
+    y= "Life Expectancy (years)")
+```
+
+```{r}
+gapminder %>% 
+  ggplot(aes(x = gdpPercap, y = lifeExp,)) +
+  geom_jitter() +
+  scale_x_log10() +
+  labs(title = "Per Capita GDP vs. Life Expectancy",
+       x = "Per Capita GDP",
+       y = "Life Expectancy") +
+  theme(plot.title = element_text(size = rel(1.5), hjust = 0.5)) +
+  geom_smooth(method = lm, se = F)
+```
+
+```{r}
+PopulationGrowth <- gapminder %>% 
+  group_by(country) %>% 
+  summarize(pop_growth = max(pop)-min(pop)) %>% 
+  arrange(desc(pop_growth))
+PopulationGrowth
+```
+
+```{r}
+gapminder %>%
+  filter(country == "China" |
+           country == "India" | 
+           country == "United States" | 
+           country == "Indonesia" |
+           country == "Brazil") %>% 
+  ggplot(aes(x=year, y=pop, color=country)) +
+  geom_point() +
+  geom_line() +
+  labs(title = "Top 5 Population Growths",
+       x= "Year",
+       y= "Population") +
+  theme(plot.title = element_text(size = rel(2), hjust = 0.5))
+```
+
+```{r}
+gapminder %>%
+  filter(country == "China" |
+           country == "India" | 
+           country == "United States" | 
+           country == "Indonesia" |
+           country == "Brazil") %>% 
+  ggplot(aes(x=year, y=gdpPercap, color=country)) +
+  geom_point() +
+  geom_line() +
+   labs(title = "GDP per Capita Growth",
+       x= "Year",
+       y= "GDP Per Capita") +
+  theme(plot.title = element_text(size = rel(1), hjust = 0.5))
+```
+
+
