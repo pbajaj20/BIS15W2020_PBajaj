@@ -47,8 +47,18 @@ Data2 <- Data %>%
 ```
 
 ```{r}
-Data2 %>% 
-  separate(Activity_Reduction, into= c("patient", "sex"), sep = "_")
+Data3 <- Data2 %>% 
+  separate(Activity_Reduction, into= c("Activity Reduction? ", "TotalPop"),  sep = "/")  %>% 
+  separate(Less_Accomplished, into = c("Less Accomplished? ", "TotalPop2"), sep = "/")  %>% 
+  separate(Less_Careful_Work, into = c("Less Careful Work?", "TotalPop3"), sep = "/")  %>%
+  separate(Physical_Emotional_Health_VS_Social, into = c("Phys/Emotional Prob Affectting Social Activity?", "TotalPop4"), sep = "/")    %>% 
+  separate(Health_VS_SocialAct., into = c("Health limits Social Act?", "TotalPop5"), sep = "/")   %>% 
+  separate(Nervousness, into = c("Nervousness?", "TotalPop6"), sep = "/")   %>% 
+  separate(Un_Cheerable, into = c("Uncheerable?", "TotaPop7"), sep = "/")   %>% 
+  separate(Calm, into = c("Calm?", "TotalPop8"),sep = "/")      %>% 
+  separate(Downhearted, into = c("Downhearted?", "TotalPop9"), sep = "/") %>% 
+  separate(Happy, into = c("Happy?", "TotalPop10"), sep = "/")
+Data3
 ```
 
 

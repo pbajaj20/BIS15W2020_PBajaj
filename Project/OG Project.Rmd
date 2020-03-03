@@ -1,0 +1,28 @@
+---
+title: "Bis15 Project"
+author: "Priya Bajaj"
+date: "2/28/2020"
+output: html_document
+---
+
+```{r}
+library("tidyverse")
+```
+
+```{r}
+data <- readr::read_csv("~/Desktop/BIS15W2020_PBajaj/Project/test.csv")
+```
+
+```{r}
+data2 <- data[-c(2,4,5,8,20,25,28,31,34,35,36,37,38,39,40,41,42,43,50,51,52,53,54,55,56,57,63,64,65,66,67,68,69,70,71,72), ]
+```
+
+```{r}
+df = subset(data2, select = -c(X3,X5,X7,X9,X11,X13,X15,X17,X19,X21) )
+```
+
+```{r}
+data3 <- data2 %>% 
+  rename(Activity_Reduction="Cut down on the amount of time you spent on work or other activities?", Less_Accomplished="Accomplished less than you would like?", Less_Careful_Work= "Did work or other activities less carefully than ususal?", Physical_Emotional_Health_VS_Social= "Has your physical health or emotional problems interfered with your normal social activities?", Health_VS_SocialAct.="Has your health limited your social activities?", Nervousness= "Have you been a very nervous person?", Un_Cheerable="Have you felt so down in the dumps that nothing could cheer you up?", Calm="Have you felt calm and peaceful?",Downhearted="Have you felt downhearted and blue?", Happy="Have you been a happy person?")
+         
+```
