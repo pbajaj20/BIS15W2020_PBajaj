@@ -63,5 +63,8 @@ Data3
 
 
 ```{r}
-help("")
+Data4 <- Data3   %>% 
+  separate(TotalPop, into = c("TotalPop1", "% Reported"), sep = " ")
+
+Data4
 ```

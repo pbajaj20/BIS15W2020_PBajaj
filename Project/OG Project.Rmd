@@ -14,15 +14,45 @@ data <- readr::read_csv("~/Desktop/BIS15W2020_PBajaj/Project/test.csv")
 ```
 
 ```{r}
-data2 <- data[-c(2,4,5,8,20,25,28,31,34,35,36,37,38,39,40,41,42,43,50,51,52,53,54,55,56,57,63,64,65,66,67,68,69,70,71,72), ]
+data2 <- data[-c(1,2,3,4,5,8,20,25,28,31,34,35,36,37,38,39,40,41,42,43,50,51,52,53,54,55,56,57,63,64,65,66,67,68,69,70,71,72), ]
 ```
 
 ```{r}
-df = subset(data2, select = -c(X3,X5,X7,X9,X11,X13,X15,X17,X19,X21) )
+df = subset(data2, select = -c(X3,X5,X7,X9,X11,X13,X15,X17,X19) )
 ```
 
 ```{r}
-data3 <- data2 %>% 
-  rename(Activity_Reduction="Cut down on the amount of time you spent on work or other activities?", Less_Accomplished="Accomplished less than you would like?", Less_Careful_Work= "Did work or other activities less carefully than ususal?", Physical_Emotional_Health_VS_Social= "Has your physical health or emotional problems interfered with your normal social activities?", Health_VS_SocialAct.="Has your health limited your social activities?", Nervousness= "Have you been a very nervous person?", Un_Cheerable="Have you felt so down in the dumps that nothing could cheer you up?", Calm="Have you felt calm and peaceful?",Downhearted="Have you felt downhearted and blue?", Happy="Have you been a happy person?")
-         
+data3 <- df %>% 
+  rename(Characteristics= "X1", Activity_Reduction="ROLE EMOTIONAL SCALE", Less_Accomplished="X4", Less_Careful_Work= "X6", Physical_Emotional_Health_VS_Social= "SOCIAL FUNCTIONING SCALE", Health_VS_SocialAct.="X10", Nervousness= "MENTAL HEALTH SCALE", Un_Cheerable="X14", Calm="X16",Downhearted="X18", Happy="X20")
+```
+
+
+```{r}
+data4 <- data3 %>% 
+  separate(Activity_Reduction, into= c("Activity Reduction? ", "TotalPop"),  sep = "/")  %>% 
+  separate(Less_Accomplished, into = c("Less Accomplished? ", "TotalPop2"), sep = "/")  %>% 
+  separate(Less_Careful_Work, into = c("Less Careful Work?", "TotalPop3"), sep = "/")  %>%
+  separate(Physical_Emotional_Health_VS_Social, into = c("Phys/Emotional Prob Affectting Social Activity?", "TotalPop4"), sep = "/")    %>% 
+  separate(Health_VS_SocialAct., into = c("Health limits Social Act?", "TotalPop5"), sep = "/")   %>% 
+  separate(Nervousness, into = c("Nervousness?", "TotalPop6"), sep = "/")   %>% 
+  separate(Un_Cheerable, into = c("Uncheerable?", "TotaPop7"), sep = "/")   %>% 
+  separate(Calm, into = c("Calm?", "TotalPop8"),sep = "/")      %>% 
+  separate(Downhearted, into = c("Downhearted?", "TotalPop9"), sep = "/") %>% 
+  separate(Happy, into = c("Happy?", "TotalPop10"), sep = "/")
+data4
+```
+
+```{r}
+data5 <- data4   %>% 
+  separate(TotalPop, into = c("TotalPop1", "% Reported1"), sep = " ")  %>% 
+  separate(TotalPop2, into = c("TotalPop2", "% Reported2"), sep = " ")  %>% 
+  separate(TotalPop3, into = c("TotalPop3", "% Reported3"), sep = " ")  %>% 
+  separate(TotalPop4, into = c("TotalPop4", "% Reported4"), sep = " ")  %>% 
+  separate(TotalPop5, into = c("TotalPop5", "% Reported5"), sep = " ")  %>% 
+  separate(TotalPop6, into = c("TotalPop6", "% Reported6"), sep = " ")  %>% 
+  separate(TotaPop7, into = c("TotalPop7", "% Reported7"), sep = " ")  %>% 
+  separate(TotalPop8, into = c("TotalPop8", "% Reported8"), sep = " ")  %>% 
+  separate(TotalPop9, into = c("TotalPop9", "% Reported9"), sep = " ")  %>% 
+  separate(TotalPop10, into = c("TotalPop10", "% Reported10"), sep = " ")
+data5
 ```
