@@ -77,7 +77,18 @@ sapply(data_num, class)
 ```{r}
 data6 %>% 
   filter(Characteristics=="Male") %>%
-ggplot(data=data6, mapping = aes(x = 'Activity Reduction?', y = 'Male'))+
+  ggplot(data=data6, mapping = aes(x = 'Activity Reduction?' , y = 'Male'))+
   geom_point()
+```
+
+```{r}
+data6 %>% 
+  pivot_longer( `Nervousness?`:`Happy?`,
+               names_to = "Emotional_State",
+               values_to = "Count") %>% 
+  group_by(Emotional_State) %>% 
+  summarise('Male') %>%
+  ggplot(aes(x = Emotional_State, y = 'Male'))+
+  geom_bar(stat = "identity")
 ```
 
