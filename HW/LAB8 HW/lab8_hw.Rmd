@@ -1,9 +1,13 @@
 ---
 title: "Lab 8 Homework"
 author: "Priya Bajaj"
+<<<<<<< HEAD
 date: "3/6/2020`"
+=======
+date: "`3/6/20`"
+>>>>>>> 8f7af95ec1936554c58fe1439690c132e5af3aa5
 output:
-  html_document:
+  html_document: 
     keep_md: yes
     theme: spacelab
 ---
