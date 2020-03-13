@@ -113,22 +113,28 @@ plot2 %>%
   ggplot(aes(x=Soc_State, y=Count, group=Characteristics, fill=Characteristics))+
   geom_col(position="dodge")+
   coord_flip()
-```
+```  
 Filter cancer as characterisitic
 ```{r}
 plot3 <- data_subset %>% 
   filter(Characteristics=="Leukemia" | Characteristics=="Hodgkin" | Characteristics=="NHL" | Characteristics=="CNS" | Characteristics=="Neuroblastoma" | Characteristics== "Non-Heritable Retinoblastoma" | Characteristics=="Heritable Retinoblastoma" |Characteristics=="Wilms" | Characteristics== "Bone Sarcoma" | Characteristics=="Soft Tissue Sarcoma" | Characteristics== "Other") %>% 
-  rename(Diagnosis= "Characteristics")
+  rename(Diagnosis= "Characteristics")  %>% 
+  select(Diagnosis, Nervousness, Uncheerable, Calm, Downhearted, Happy)  %>%
+  pivot_longer(-Diagnosis,
+               names_to = "Emotional_State",
+               values_to = "Observations")
+ 
+plot3$Observations <- as.numeric(plot3$Observations)
 plot3
 ```
 
+
+
 ```{r}
 plot3 %>% 
-  select(Diagnosis, Nervousness, Uncheerable, Calm, Downhearted, Happy) %>% 
-  pivot_longer(-Diagnosis,
-               names_to = "Emotional_State",
-               values_to = "Observations") %>% 
   ggplot(aes(x=Emotional_State, y=Observations, group=Diagnosis, fill=Diagnosis))+
-  geom_col(position = "Dodge")   
+  geom_col(position = "Dodge")
+
+
 ```
 
