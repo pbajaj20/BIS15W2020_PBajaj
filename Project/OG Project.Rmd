@@ -122,19 +122,142 @@ plot3 <- data_subset %>%
   select(Diagnosis, Nervousness, Uncheerable, Calm, Downhearted, Happy)  %>%
   pivot_longer(-Diagnosis,
                names_to = "Emotional_State",
-               values_to = "Observations")
+               values_to = "Observations") %>%
+  arrange(desc(Observations))
+
  
 plot3$Observations <- as.numeric(plot3$Observations)
 plot3
 ```
 
-
-
+Graph
 ```{r}
 plot3 %>% 
   ggplot(aes(x=Emotional_State, y=Observations, group=Diagnosis, fill=Diagnosis))+
-  geom_col(position = "Dodge")
+  geom_col(position = "Dodge")+
+  ggtitle("Cancer Vs Emotional State")
+```
 
+Filter cancer and activity levels
+```{r}
+plot4 <- data_subset %>% 
+  filter(Characteristics=="Leukemia" | Characteristics=="Hodgkin" | Characteristics=="NHL" | Characteristics=="CNS" | Characteristics=="Neuroblastoma" | Characteristics== "Non-Heritable Retinoblastoma" | Characteristics=="Heritable Retinoblastoma" |Characteristics=="Wilms" | Characteristics== "Bone Sarcoma" | Characteristics=="Soft Tissue Sarcoma" | Characteristics== "Other") %>% 
+  rename(Diagnosis= "Characteristics")  %>% 
+  select(Diagnosis, `Activity Reduction`, `Less Accomplished`, `Phys_Emotional Prob Affectting Social Activity`)  %>%
+  pivot_longer(-Diagnosis,
+               names_to = "Soc_State",
+               values_to = "Observations") %>%
+  arrange(desc(Observations))
+ 
+plot4$Observations <- as.numeric(plot4$Observations)
+plot4
 
 ```
+
+Graph
+```{r}
+plot4 %>% 
+  ggplot(aes(x=Soc_State, y=Observations, group=Diagnosis, fill=Diagnosis))+
+  geom_col(position = "Dodge") +
+  ggtitle("Cancer Vs Social State") +
+  coord_flip() 
+```
+
+Separate marriage status and social activities
+```{r}
+plot5 <- data_subset %>% 
+  filter(Characteristics=="Single" | Characteristics=="Married" | Characteristics=="Separated" | Characteristics=="Divorced" | Characteristics=="Widowed") %>% 
+  rename(Marriage_Status= "Characteristics")  %>% 
+  select(Marriage_Status, `Activity Reduction`, `Less Accomplished`, `Phys_Emotional Prob Affectting Social Activity`)  %>%
+  pivot_longer(-Marriage_Status,
+               names_to = "Soc_State",
+               values_to = "Observations") %>%
+  arrange(desc(Observations))
+ 
+plot5$Observations <- as.numeric(plot5$Observations)
+plot5
+
+```
+
+Graph
+```{r}
+plot5 %>% 
+  ggplot(aes(x=Soc_State, y=Observations, group=Marriage_Status, fill=Marriage_Status))+
+  geom_col(position = "Dodge") +
+  ggtitle("Marriage Status Vs Social State") +
+  coord_flip() 
+```
+
+Select marriage status and emotional state
+```{r}
+plot6 <- data_subset %>% 
+  filter(Characteristics=="Single" | Characteristics=="Married" | Characteristics=="Separated" | Characteristics=="Divorced" | Characteristics=="Widowed") %>% 
+  rename(Marriage_Status= "Characteristics")  %>% 
+  select(Marriage_Status, Nervousness, Uncheerable, Calm, Downhearted, Happy)  %>%
+  pivot_longer(-Marriage_Status,
+               names_to = "Emotional_State",
+               values_to = "Observations") %>%
+  arrange(desc(Observations))
+
+ 
+plot6$Observations <- as.numeric(plot6$Observations)
+plot6
+```
+
+Graph
+```{r}
+plot6 %>% 
+  ggplot(aes(x=Emotional_State, y=Observations, group=Marriage_Status, fill=Marriage_Status))+
+  geom_col(position = "Dodge")+
+  ggtitle("Marriage Status Vs Emotional State")
+```
+
+Select ages and emotional state
+```{r}
+plot7 <- data_subset %>% 
+  filter(Characteristics=="0-4 years" | Characteristics=="5-9 years" | Characteristics=="10-14 years") %>% 
+  rename(Diagnosis_Age= "Characteristics")  %>% 
+  select(Diagnosis_Age, Nervousness, Uncheerable, Calm, Downhearted, Happy)  %>%
+  pivot_longer(-Diagnosis_Age,
+               names_to = "Emotional_State",
+               values_to = "Observations") %>%
+  arrange(desc(Observations))
+
+ 
+plot7$Observations <- as.numeric(plot7$Observations)
+plot7
+```
+
+Graph
+```{r}
+plot7 %>% 
+  ggplot(aes(x=Emotional_State, y=Observations, group=Diagnosis_Age, fill=Diagnosis_Age))+
+  geom_col(position = "Dodge")+
+  ggtitle("Diagnosis Age Vs Emotional State")
+```
+
+```{r}
+plot8 <- data_subset %>% 
+  filter(Characteristics=="0-4 years" | Characteristics=="5-9 years" | Characteristics=="10-14 years") %>% 
+  rename(Diagnosis_Age= "Characteristics")  %>% 
+  select(Diagnosis_Age, `Activity Reduction`, `Less Accomplished`, `Phys_Emotional Prob Affectting Social Activity`)  %>%
+  pivot_longer(-Diagnosis_Age,
+               names_to = "Soc_State",
+               values_to = "Observations") %>%
+  arrange(desc(Observations))
+ 
+plot8$Observations <- as.numeric(plot8$Observations)
+plot8
+
+```
+
+```{r}
+plot8 %>% 
+  ggplot(aes(x=Soc_State, y=Observations, group=Diagnosis_Age, fill=Diagnosis_Age))+
+  geom_col(position = "Dodge") +
+  ggtitle("Diagnosis Age Vs Social State") +
+  coord_flip() 
+  
+```
+
 
