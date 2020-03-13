@@ -2,7 +2,9 @@
 title: "Bis15 Project"
 author: "Priya Bajaj"
 date: "2/28/2020"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r}
